@@ -1,0 +1,30 @@
+﻿@model RRHH.Models.TIPO_CHEQUE
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Tipo de Cheque</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.COD_TIPO_CHEQUE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.COD_TIPO_CHEQUE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID_TIPO_CHEQUE">Editar</a> |
+    <a asp-action="Index">Retroceder a la lista</a>
+</div>
