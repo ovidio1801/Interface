@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\PS_CA_ROL_PAGO_ACREEDOR.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="appsettings2.json" />
     <Content Remove="appsettings7.json" />
   </ItemGroup>

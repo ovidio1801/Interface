@@ -1,0 +1,48 @@
+﻿@model RRHH.Models.Parametro
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Parámetros</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CODIGO_TR)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CODIGO_TR)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CENTRO)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CENTRO)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CUENTA_DB)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CUENTA_DB)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CUENTA_CR)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CUENTA_CR)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+    </dl>
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.ID_PARAM">Editar</a> |*@
+    <a asp-action="Index">Retroceder</a>
+</div>

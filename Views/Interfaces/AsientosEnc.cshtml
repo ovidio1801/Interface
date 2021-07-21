@@ -1,0 +1,142 @@
+﻿@model List<AsientoEnc>;
+
+
+@section Styles{
+    <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+
+@{
+    ViewData["Title"] = "Encabezado de los Asientos";
+}
+
+<h6>Encabezado del Asiento</h6>
+<hr />
+
+<form asp-action="Index" method="post">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="datatable">
+                <table class="table table-bordered table-striped" id="tblAsientosEnc">
+                    <thead>
+                        @*<tr style="background: #f2f2f2">
+                                <th colspan="3">Encabezado del Asiento</th>
+                            </tr>*@
+                        <tr>
+                            <th class="text-sm-center">Fecha</th>
+                            <th class="text-sm-center">Grupo Calendario</th>
+                            <th class="text-sm-center">Concepto</th>
+                            <th class="text-sm-center">Año Contable</th>
+                            <th class="text-sm-center">Periodo Contable</th>
+                            <th class="text-sm-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            for (int i = 0; i < Model.Count(); i++)
+                            {
+                                <tr>
+                                    <td class="text-sm-left">@Model[i].ca_fec_asiento<input type="hidden" asp-for="@Model[i].ca_fec_asiento" /></td>
+                                    <td class="text-sm-left">@Model[i].cal_run_id<input type="hidden" asp-for="@Model[i].cal_run_id" /></td>
+                                    <td class="text-sm-left">@Model[i].ca_concepto<input type="hidden" asp-for="@Model[i].ca_concepto" /></td>
+                                    <td class="text-sm-center">@Model[i].ca_anio_trans<input type="hidden" asp-for="@Model[i].ca_anio_trans" /></td>
+                                    <td class="text-sm-center">@Model[i].ca_cod_per<input type="hidden" asp-for="@Model[i].ca_cod_per" /></td>
+                                    <td class="text-sm-center">
+                                        <a href="javascript:void(0);" id="Detalle" class="anchorDetail btn btn-success"
+                                           data-empresa="@Model[i].ca_empresa" data-cod-geografico="@Model[i].ca_cod_geografico"
+                                           data-cod-contab="@Model[i].ca_cod_contab" data-cod-comp1="@Model[i].ca_cod_comp1"
+                                           data-anio-trans="@Model[i].ca_anio_trans" data-cod-per="@Model[i].ca_cod_per"
+                                           data-cal-run-id="@Model[i].cal_run_id">Detalle</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input type="submit" name="Regresar" value="Regresar..." class="btn btn-primary float-right" asp-action="Index" />
+            </div>
+        </div>
+
+    </div>
+
+
+</form>
+
+
+<div class="modal fade" id="modalDetalle" aria-labelledby="modalDetalle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div id='modalDetalleContent'></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tblAsientosEnc').DataTable();
+        });
+
+        //$(document).ready(function () {
+        //    $('#tblDetalle').DataTable({
+        //        scrollY: 300,
+        //        paging: false
+
+        //    });
+        //});
+
+        let TeamDetailPostBackURL = '/Interfaces/DetalleAS';
+        $(function () {
+            $(".anchorDetail").click(function () {
+
+                const $buttonClicked = $(this);
+                let empresa = $buttonClicked.attr('data-empresa');
+                let cod_geografico = $buttonClicked.attr('data-cod-geografico');
+                let cod_contab = $buttonClicked.attr('data-cod-contab');
+                let cod_comp1 = $buttonClicked.attr('data-cod-comp1');
+                let anio_trans = $buttonClicked.attr('data-anio-trans');
+                let cod_per = $buttonClicked.attr('data-cod-per');
+                let cal_run_id = $buttonClicked.attr('data-cal-run-id');
+                $.ajax({
+                    type: "GET",
+                    url: TeamDetailPostBackURL,
+                    contentType: "application/json; charset=utf-8",
+                    data: {
+                        "ca_empresa": empresa,
+                        "ca_cod_geografico": cod_geografico,
+                        "ca_cod_contab": cod_contab,
+                        "ca_cod_comp1": cod_comp1,
+                        "ca_anio_trans": anio_trans,
+                        "ca_cod_per": cod_per,
+                        "cal_run_id": cal_run_id
+                    },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#modalDetalleContent').html(data);
+                        $('#modalDetalle').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+}
+
+
+

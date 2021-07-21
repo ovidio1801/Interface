@@ -37,6 +37,8 @@ namespace RRHH.Models
 
         public decimal ca_cod_per { get; set; }
 
+        public string ca_pasado { get; set; }
+
 
     }
 }

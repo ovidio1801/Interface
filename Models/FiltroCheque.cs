@@ -33,6 +33,6 @@ namespace RRHH.Models
         [Range(1, int.MaxValue, ErrorMessage = "{0} debe estar en un rango entre {1} y {2}")]
         public int secFin { get; set; }
 
-        public virtual TIPO_CHEQUE TIPO_CHEQUE { get; set; }
+        public virtual TipoCheque TIPO_CHEQUE { get; set; }
     }
 }

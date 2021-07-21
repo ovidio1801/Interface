@@ -7,7 +7,7 @@ namespace RRHH.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             //migrationBuilder.CreateTable(
-            //    name: "PS_CA_PARAM",
+            //    name: "Parametro",
             //    columns: table => new
             //    {
             //        ID_PARAM = table.Column<int>(type: "int", nullable: false)

@@ -1,0 +1,156 @@
+﻿@model List<Cheque>;
+
+@section Styles{
+    <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+}
+
+@{
+    ViewData["Title"] = "Cheques Pendientes";
+}
+
+<h6>Cheques Pendientes</h6>
+<hr />
+
+<form asp-action="Index">
+
+    <div class="row">
+        <div class="text-danger">
+            @if (ViewBag.Errores != null)
+            {
+                <ul>
+                    @foreach (string item in ViewBag.Errores)
+                    {
+                        <li>@item.ToString()</li>
+                    }
+                </ul>
+            }
+        </div>
+        <div class="text-success">
+            @if (ViewBag.Mensaje != null)
+            {
+                <ul>
+                     <li>@ViewBag.Mensaje</li>
+                </ul>
+            }
+        </div>
+    </div>
+    <div class="row">
+        @*<div class="col-sm-5">
+            <div class="row">
+                <div class="form-group col-sm-6">
+
+                    <label class="col-form-label">Desde</label>
+                    <input type="date" name="Desde" value="@ViewBag.Desde" class="form-control" />
+
+                </div>
+                <div class="form-group col-sm-6">
+
+                    <label class="col-form-label">Hasta</label>
+                    <input type="date" name="Hasta" value="@ViewBag.Hasta" class="form-control" />
+                </div>
+            </div>
+        </div>*@
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    @*<label asp-for="tipoCheque" class="col-form-label"></label>
+                    <select asp-for="tipoCheque" class="form-control" asp-items="ViewBag.TipoCheque">
+                        <option value="">Seleccione un valor</option>
+                    </select>
+                    <span asp-validation-for="tipoCheque" class="text-danger"></span>*@
+                    @*<label class="col-form-label">Tipo Cheque</label>*@
+                    <select class="form-control" name="tipoCheque">
+                        <option value="">Tipo Cheque</option>
+                        @foreach (TipoCheque item in ViewBag.tiposCheque)
+                        {
+                            <option value="@item.COD_TIPO_CHEQUE" selected="@(item.COD_TIPO_CHEQUE == ViewBag.TipoCheque?"selected":null)">@item.DESCRIPCION</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    @*<label asp-for="secIni" class="col-form-label"></label>
+                    <input asp-for="secIni" class="form-control" />
+                    <span asp-validation-for="secIni" class="text-danger"></span>*@
+                    @*<label class="col-form-label">Secuencia Inicial</label>*@
+                    <input type="number" name="secIni" value="@ViewBag.SecIni" class="form-control" placeholder="Secuencia inicial" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="submit" name="cargar" value="Cargar cheques" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group ">
+                        <input type="submit" name="imprimir" value="Imprimir..." class="btn btn-success float-right" asp-action="Imprimir" />
+                    </div>
+                </div>
+            </div>
+         </div>
+     </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="datatable">
+                    <table class="table table-bordered table-striped" id="tblCheques">
+                        <thead>
+                            <tr>
+                                <th class="text-sm-center">Nombre</th>
+                                <th class="text-sm-center">Fecha</th>
+                                <th class="text-sm-center">Monto</th>
+                                <th class="text-sm-center">Comentario</th>
+                                <th class="text-sm-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                for (int i = 0; i < Model.Count(); i++)
+                                {
+                                    <tr>
+                                        <td>@Model[i].nombre<input type="hidden" asp-for="@Model[i].nombre" /></td>
+                                        <td class="text-sm-center">@Model[i].fecha_registro<input type="hidden" asp-for="@Model[i].fecha_registro" /></td>
+                                        <td class="text-sm-right">@Model[i].monto.ToString("C2")<input type="hidden" asp-for="@Model[i].monto" /></td">
+                                        <td>@Model[i].comentario<input type="hidden" asp-for="@Model[i].comentario" /></td>
+                                        <td>
+                                            <input asp-for="@Model[i].imp" /><input type="hidden" asp-for="@Model[i].cheque" />
+                                            <input type="hidden" asp-for="@Model[i].irh_chequeId " /><input type="hidden" asp-for="@Model[i].empresa" />
+                                            <input type="hidden" asp-for="@Model[i].oficina " /> <input type="hidden" asp-for="@Model[i].codigo " />
+                                            <input type="hidden" asp-for="@Model[i].status " /> <input type="hidden" asp-for="@Model[i].fecha_impresion " />
+                                            <input type="hidden" asp-for="@Model[i].forma_pago " /> <input type="hidden" asp-for="@Model[i].tipo_acreedor " />
+                                            <input type="hidden" asp-for="@Model[i].usuario " />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+</form>
+
+@section Scripts {
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tblCheques').DataTable({
+                scrollY: 300,
+                paging: false
+
+            });
+        });
+    </script>
+}
+
+

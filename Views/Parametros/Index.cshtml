@@ -1,0 +1,59 @@
+﻿@model IEnumerable<RRHH.Models.Parametro>
+
+@{
+    ViewData["Title"] = "Parámetros";
+}
+
+<h1>Parámetros</h1>
+
+<p>
+    @*<a asp-action="Create">Crear Nuevo</a>*@
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CODIGO_TR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CENTRO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CUENTA_DB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CUENTA_CR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DESCRIPCION)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CODIGO_TR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CENTRO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CUENTA_DB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CUENTA_CR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DESCRIPCION)
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.ID_PARAM">Editar</a> |*@
+                <a asp-action="Details" asp-route-id="@item.ID_PARAM">Detalles</a> @*|*@
+                @*<a asp-action="Delete" asp-route-id="@item.ID_PARAM">Eliminar</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

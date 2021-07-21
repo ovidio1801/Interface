@@ -40,39 +40,55 @@ namespace RRHH.Controllers
             return View("Index");
         }
 
-        public IActionResult Aceptar(string option)
+        public IActionResult ShowOption(string option)
         {
 
 
             if (option == "1")//Asientos Contables
             {
-                AsientoEnc Enc = ctx.AsientoEncs.ToList().FirstOrDefault();
+                List<AsientoEnc> Encs = ctx.AsientosEnc.Where(x => x.ca_pasado == "N").ToList();
 
-                string ca_empresa = Enc.ca_empresa.ToString();
-                string ca_cod_geografico = Enc.ca_cod_geografico.ToString();
-                string ca_cod_contab = Enc.ca_cod_contab.ToString();
-                string ca_cod_comp1 = Enc.ca_cod_comp1.ToString();
-                string ca_anio_trans = Enc.ca_anio_trans.ToString();
-                decimal ca_cod_per = Enc.ca_cod_per;
-                string cal_run_id = Enc.cal_run_id.ToString();
+                if(Encs != null)
+                {
+                    return View("AsientosEnc", Encs);
+                }
 
-                List<AsientoDet> Det = new List<AsientoDet>();
-
-                //Det = ctx.AsientoDets.Take(5).ToList();
-
-                Det = ctx.AsientoDets.Where(x => x.ca_empresa == ca_empresa
-                    && x.ca_cod_geografico == ca_cod_geografico && x.ca_cod_contab == ca_cod_contab
-                    && x.ca_cod_comp1 == ca_cod_comp1 && x.ca_anio_trans == ca_anio_trans
-                    && x.ca_cod_per == ca_cod_per && x.cal_run_id == cal_run_id)
-                    .ToList();
-                ViewBag.Enc = Enc;
-                return View("AsientosContables", Det);
+                return NotFound("No se encontraron Asientos contables");
             }
 
 
             return StatusCode(200, "Todo fue bien");
         }
-        public IActionResult AsientosContables(AsientoEnc Enc)
+
+        public IActionResult DetalleAS(string ca_empresa, string ca_cod_geografico, string ca_cod_contab, string ca_cod_comp1,
+            string ca_anio_trans, decimal ca_cod_per, string cal_run_id)
+        {
+            
+            
+            
+            //string ca_empresa = Enc.ca_empresa.ToString();
+            //string ca_cod_geografico = Enc.ca_cod_geografico.ToString();
+            //string ca_cod_contab = Enc.ca_cod_contab.ToString();
+            //string ca_cod_comp1 = Enc.ca_cod_comp1.ToString();
+            //string ca_anio_trans = Enc.ca_anio_trans.ToString();
+            //decimal ca_cod_per = Enc.ca_cod_per;
+            //string cal_run_id = Enc.cal_run_id.ToString();
+
+            List<AsientoDet> Dets = new List<AsientoDet>();
+
+            ////Det = ctx.AsientoDets.Take(5).ToList();
+
+            Dets = ctx.AsientosDet.Where(x => x.ca_empresa == ca_empresa
+                && x.ca_cod_geografico == ca_cod_geografico && x.ca_cod_contab == ca_cod_contab
+                && x.ca_cod_comp1 == ca_cod_comp1 && x.ca_anio_trans == ca_anio_trans
+                && x.ca_cod_per == ca_cod_per && x.cal_run_id == cal_run_id)
+                .ToList();
+
+            return PartialView("_modalDetalle", Dets);
+        }
+
+
+        public IActionResult ProcesarAS(AsientoEnc Enc)
         {
 
             string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");

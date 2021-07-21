@@ -14,12 +14,11 @@ namespace RRHH.Data
         {
         }
 
-        public DbSet<RRHH.Models.PS_CA_PARAM> PS_CA_PARAM { get; set; }
-        public DbSet<RRHH.Models.TIPO_CHEQUE> TIPO_CHEQUE { get; set; }
-        public DbSet<RRHH.Models.IRH_CHEQUE> IRH_CHEQUES { get; set; }
-        public DbSet<RRHH.Models.PS_CA_ROL_PAGO_ACREEDOR> PS_CA_ROL_PAGO_ACREEDOR { get; set; }
-        public DbSet<RRHH.Models.AsientoEnc> AsientoEncs { get; set; }
-        public DbSet<RRHH.Models.AsientoDet> AsientoDets { get; set; }
+        public DbSet<RRHH.Models.Parametro> Parametros { get; set; }
+        public DbSet<RRHH.Models.TipoCheque> TiposCheque { get; set; }
+        public DbSet<RRHH.Models.Cheque> Cheques { get; set; }
+        public DbSet<RRHH.Models.AsientoEnc> AsientosEnc { get; set; }
+        public DbSet<RRHH.Models.AsientoDet> AsientosDet { get; set; }
 
 
     }

@@ -1,0 +1,41 @@
+﻿
+@model List<AsientoDet>
+
+    <div>
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalDetalle">Detalle</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="max-height:calc(100vh - 210px); overflow-y:auto">
+            <table class="tablemodel table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-sm-center">Cuenta</th>
+                        <th class="text-sm-center">Débito</th>
+                        <th class="text-sm-center">Crédito</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        for (int i = 0; i < Model.Count(); i++)
+                        {
+                            <tr>
+                                <td class="text-sm-left">@Model[i].ca_cod_cta</td>
+                                <td class="text-sm-right">@Model[i].ca_deb_local.ToString("C")</td>
+                                <td class="text-sm-right">@Model[i].ca_deb_local.ToString("C")</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+
+
+    </div>

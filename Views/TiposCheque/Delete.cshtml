@@ -1,0 +1,33 @@
+﻿@model RRHH.Models.TipoCheque
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Eliminar</h1>
+
+<h3>Está seguro que desea eliminar este registro?</h3>
+<div>
+    <h4>Tipo de Cheque</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.COD_TIPO_CHEQUE)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.COD_TIPO_CHEQUE)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID_TIPO_CHEQUE" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Retroceder a la lista</a>
+    </form>
+</div>

@@ -20,7 +20,7 @@ namespace RRHH.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("RRHH.Models.PS_CA_PARAM", b =>
+            modelBuilder.Entity("RRHH.Models.Parametro", b =>
                 {
                     b.Property<int>("ID_PARAM")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace RRHH.Migrations
                     b.ToTable("PS_CA_PARAM");
                 });
 
-            modelBuilder.Entity("RRHH.Models.TIPO_CHEQUE", b =>
+            modelBuilder.Entity("RRHH.Models.TiposCheque", b =>
                 {
                     b.Property<int>("ID_TIPO_CHEQUE")
                         .ValueGeneratedOnAdd()
