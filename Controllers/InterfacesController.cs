@@ -14,10 +14,12 @@ namespace RRHH.Controllers
     {
 
         private readonly RRHHContext ctx;
+        private readonly ContabContext ctxContab;
 
-        public InterfacesController(RRHHContext context)
+        public InterfacesController(RRHHContext context, ContabContext contContext)
         {
             ctx = context;
+            ctxContab = contContext;
         }
 
         public IActionResult Index()
@@ -90,6 +92,13 @@ namespace RRHH.Controllers
 
         public IActionResult ProcesarAS(AsientoEnc Enc)
         {
+
+            //string SQL = "SELECT B.seq_comp  ,C.seq_comp ,B.COD_EJER ,C.COD_PER 	INTO    	:ll_COMP_EJE,:ll_COMP_PER,:ll_cod_ejer,:ll_COD_PER
+            //                FROM TEST_CONTA.DBO.CN_SEQEJER B, TEST_CONTA.DBO.CN_SEQPER C
+            //                WHERE B.COD_EJER = C.COD_EJER AND B.COD_COMP = C.COD_COMP AND
+            //                B.COD_COMP = '01' and B.COD_EJER = :ll_anio and
+            //                C.COD_PER = :ll_periodo;
+
 
             string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
 

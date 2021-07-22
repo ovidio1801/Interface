@@ -36,6 +36,9 @@ namespace RRHH
             services.AddDbContext<RRHHContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("RRHHContext")));
 
+            services.AddDbContext<ContabContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ContabContext")));
+
             services.AddAuthorization(options =>
             {
 
