@@ -9,8 +9,30 @@
     ViewData["Title"] = "Encabezado de los Asientos";
 }
 
-<h6>Encabezado del Asiento</h6>
+<h6>Asientos Contables</h6>
 <hr />
+
+<div class="row">
+    <div class="text-danger">
+        @if (ViewBag.Errores != null)
+        {
+            <ul>
+                @foreach (string item in ViewBag.Errores)
+                {
+                    <li>@item.ToString()</li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="text-success">
+        @if (ViewBag.Mensaje != null)
+        {
+            <ul>
+                <li>@ViewBag.Mensaje</li>
+            </ul>
+        }
+    </div>
+</div>
 
 <form asp-action="Index" method="post">
     <div class="row">
@@ -40,7 +62,14 @@
                                     <td class="text-sm-left">@Model[i].cal_run_id<input type="hidden" asp-for="@Model[i].cal_run_id" /></td>
                                     <td class="text-sm-left">@Model[i].ca_concepto<input type="hidden" asp-for="@Model[i].ca_concepto" /></td>
                                     <td class="text-sm-center">@Model[i].ca_anio_trans<input type="hidden" asp-for="@Model[i].ca_anio_trans" /></td>
-                                    <td class="text-sm-center">@Model[i].ca_cod_per<input type="hidden" asp-for="@Model[i].ca_cod_per" /></td>
+                                    <td class="text-sm-center">
+                                        @Model[i].ca_cod_per<input type="hidden" asp-for="@Model[i].ca_cod_per" />
+                                        <input type="hidden" asp-for="@Model[i].ca_empresa" />
+                                        <input type="hidden" asp-for="@Model[i].ca_cod_geografico" />
+                                        <input type="hidden" asp-for="@Model[i].ca_cod_contab" />
+                                        <input type="hidden" asp-for="@Model[i].ca_cod_comp1" />
+                                        <input type="hidden" asp-for="@Model[i].ca_pasado" />
+                                    </td>
                                     <td class="text-sm-center">
                                         <a href="javascript:void(0);" id="Detalle" class="anchorDetail btn btn-success"
                                            data-empresa="@Model[i].ca_empresa" data-cod-geografico="@Model[i].ca_cod_geografico"
@@ -61,10 +90,9 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <input type="submit" name="Regresar" value="Regresar" class="btn btn-primary float-left" asp-action="Index" />
-                <input type="submit" name="ProcesarAS" value="Procesar" class="btn btn-danger float-right" asp-action="ProcesarAS" />
+                <input type="submit" name="ProcesarAS" value="Procesar Asientos" class="btn btn-danger float-right" asp-action="ProcesarAS" />
             </div>
         </div>
-
     </div>
 
 

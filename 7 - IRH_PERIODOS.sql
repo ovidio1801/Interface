@@ -10,8 +10,8 @@ GO
 
 CREATE VIEW [dbo].[IRH_PERIODOS]
 AS
-SELECT        ROW_NUMBER() over(order by b.cod_ejer, c.cod_per) as periodoId, B.seq_comp, C.seq_comp AS Expr1, B.cod_ejer, C.cod_per
+SELECT        ROW_NUMBER() over(order by b.cod_ejer, c.cod_per) as periodoId, B.seq_comp as comp_eje, C.seq_comp AS comp_per, B.cod_ejer, C.cod_per
 FROM            dbo.CN_SEQEJER AS B INNER JOIN
                          dbo.CN_SEQPER AS C ON B.cod_ejer = C.cod_ejer AND B.cod_comp = C.cod_comp
 WHERE        (B.cod_comp = '01')
-
+	

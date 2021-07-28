@@ -14,7 +14,8 @@ namespace RRHH.Data
         {
         }
 
-       
+        public DbSet<RRHH.Models.Periodo> Periodos { get; set; }
+        public DbSet<RRHH.Models.PeriodoSecuencia> Secuencias { get; set; }
 
     }
 }
