@@ -18,17 +18,39 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @{ decimal db = 0;
+                        decimal cr = 0;}
                     @if (Model != null)
                     {
+                        
                         for (int i = 0; i < Model.Count(); i++)
                         {
+                            db = db + Model[i].ca_deb_local;
+                            cr = cr + Model[i].ca_crd_local;
                             <tr>
                                 <td class="text-sm-left">@Model[i].ca_cod_cta</td>
                                 <td class="text-sm-right">@Model[i].ca_deb_local.ToString("C")</td>
-                                <td class="text-sm-right">@Model[i].ca_deb_local.ToString("C")</td>
+                                <td class="text-sm-right">@Model[i].ca_crd_local.ToString("C")</td>
                             </tr>
                         }
                     }
+                <tr>
+                    @{ 
+                        string clase = "text-success";
+
+                        if(db == cr)
+                        {
+                            clase = "text-success";
+                        }
+                        else
+                        {
+                            clase = "text-danger";
+                        }
+                    }
+                    <td class="font-weight-bold text-sm-right">Total:</td>
+                    <td class="font-weight-bold text-sm-right @(clase)">@(db.ToString("C"))</td>
+                    <td class="font-weight-bold text-sm-right @(clase)">@(cr.ToString("C"))</td>
+                </tr>
                 </tbody>
 
             </table>

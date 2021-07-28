@@ -14,10 +14,12 @@ namespace RRHH.Controllers
     {
 
         private readonly RRHHContext ctx;
+        private readonly ContabContext ctxContab;
 
-        public InterfacesController(RRHHContext context)
+        public InterfacesController(RRHHContext context, ContabContext contContext)
         {
             ctx = context;
+            ctxContab = contContext;
         }
 
         public IActionResult Index()
@@ -64,19 +66,8 @@ namespace RRHH.Controllers
             string ca_anio_trans, decimal ca_cod_per, string cal_run_id)
         {
             
-            
-            
-            //string ca_empresa = Enc.ca_empresa.ToString();
-            //string ca_cod_geografico = Enc.ca_cod_geografico.ToString();
-            //string ca_cod_contab = Enc.ca_cod_contab.ToString();
-            //string ca_cod_comp1 = Enc.ca_cod_comp1.ToString();
-            //string ca_anio_trans = Enc.ca_anio_trans.ToString();
-            //decimal ca_cod_per = Enc.ca_cod_per;
-            //string cal_run_id = Enc.cal_run_id.ToString();
-
             List<AsientoDet> Dets = new List<AsientoDet>();
 
-            ////Det = ctx.AsientoDets.Take(5).ToList();
 
             Dets = ctx.AsientosDet.Where(x => x.ca_empresa == ca_empresa
                 && x.ca_cod_geografico == ca_cod_geografico && x.ca_cod_contab == ca_cod_contab
@@ -88,15 +79,96 @@ namespace RRHH.Controllers
         }
 
 
-        public IActionResult ProcesarAS(AsientoEnc Enc)
+        public IActionResult ProcesarAS(List<AsientoEnc> model)
         {
 
-            string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+            List<string> Errores = new List<string>();
 
-            string strSql = "Exec USP_CA_ASIENTO {0}, {1}";
-            ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
+            if(model.Count < 1)
+            {
+                Errores.Add("No hay asientos que procesar");
+                ViewBag.Errores = Errores;
+                return View("AsientosEnc", model);
+            }
 
-            return View("Index");
+            try
+            {
+                ctx.Database.BeginTransaction();
+
+                for (int i=0; i<model.Count(); i++)
+                {
+                    string anio_trans = model[i].ca_anio_trans.ToString();
+                    int cod_per = (int)model[i].ca_cod_per;
+                    Periodo per = ctxContab.Periodos.Where(x => x.cod_ejer == anio_trans && x.cod_per == cod_per).SingleOrDefault();
+
+                    if (per != null)
+                    {
+                        int comp_ejer = per.comp_eje;
+                        int comp_per = per.comp_per + 1;
+                        string ca_empresa = model[i].ca_empresa;
+                        string ca_cod_geografico = model[i].ca_cod_geografico;
+                        string ca_cod_contab = model[i].ca_cod_contab;
+                        string ca_cod_comp1 = model[i].ca_cod_comp1;
+                        decimal ca_anio_trans = model[i].ca_anio_trans;
+                        decimal ca_cod_per = model[i].ca_cod_per;
+                        DateTime ca_fec_asiento = model[i].ca_fec_asiento;
+                        string cal_run_id = model[i].cal_run_id;
+
+
+
+                        string sql = "Update ps_ca_rol_cn_asientos set ca_num_comp_eje = {0}, ca_num_comp_per = {1} ";
+                        sql += "from ps_ca_rol_cn_asientos where ca_empresa = {2} and ca_cod_geografico = {3} ";
+                        sql += "and ca_cod_contab = {4} and ca_cod_comp1 = {5} and ca_anio_trans = {6} and ca_cod_per = {7} ";
+                        sql += "and ca_fec_asiento = {8} and cal_run_id = {9}";
+
+                        int rows = ctx.Database.ExecuteSqlRaw(sql, comp_ejer, comp_per, ca_empresa, ca_cod_geografico,
+                            ca_cod_contab, ca_cod_comp1, ca_anio_trans, ca_cod_per, ca_fec_asiento, cal_run_id);
+
+                        sql = "Update ps_ca_rol_cn_movim set ca_num_comp_eje = {0}, ca_num_comp_per = {1} ";
+                        sql += "from ps_ca_rol_cn_movim where ca_empresa = {2} and ca_cod_geografico = {3} ";
+                        sql += "and ca_cod_contab = {4} and ca_cod_comp1 = {5} and ca_anio_trans = {6} and ca_cod_per = {7} ";
+                        sql += "and cal_run_id = {8}";
+
+                        rows = ctx.Database.ExecuteSqlRaw(sql, comp_ejer, comp_per, ca_empresa, ca_cod_geografico,
+                        ca_cod_contab, ca_cod_comp1, ca_anio_trans, ca_cod_per, cal_run_id);
+
+                        sql = "Update cn_seqper set seq_comp = seq_comp + 1 ";
+                        sql += "from cn_seqper where cod_comp = '01' ";
+                        sql += "and cod_ejer = {0} and cod_per = {1} ";
+
+                        rows = ctxContab.Database.ExecuteSqlRaw(sql, anio_trans, cod_per);
+                    }
+                    else
+                    {
+                        throw new Exception("No existe año fiscal " + anio_trans + " ni periodo contable " + cod_per);
+                    }
+
+                }
+               
+                string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+
+                string strSql = "Exec USP_CA_ASIENTO {0}, {1}";
+                ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
+
+                string sql1 = "Update ps_ca_rol_cn_asientos set ca_pasado = 'S' ";
+                sql1 += "from ps_ca_rol_cn_asientos where ca_pasado = 'N'";
+
+                int rows1 = ctx.Database.ExecuteSqlRaw(sql1);
+
+                ctx.Database.CommitTransaction();
+                
+            }
+
+            catch (Exception Exception)
+            {
+                ctx.Database.RollbackTransaction();
+                Errores.Add(Exception.Message);
+                ViewBag.Errores = Errores;
+                return View("AsientosEnc", model);
+            }
+            List<AsientoEnc> Encs = ctx.AsientosEnc.Where(x => x.ca_pasado == "N").ToList();
+            ViewBag.Mensaje = "Se procesaron los Asientos con éxito!";
+            return View("AsientosEnc", Encs);
         }
     }
 }
