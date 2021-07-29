@@ -19,7 +19,7 @@ namespace RRHH.Data
         public DbSet<RRHH.Models.Cheque> Cheques { get; set; }
         public DbSet<RRHH.Models.AsientoEnc> AsientosEnc { get; set; }
         public DbSet<RRHH.Models.AsientoDet> AsientosDet { get; set; }
-
+        public DbSet<RRHH.Models.AcreditacionEmpleado> AcredsEmpl { get; set; }
 
     }
 }

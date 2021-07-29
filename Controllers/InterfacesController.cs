@@ -7,6 +7,7 @@ using RRHH.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace RRHH.Controllers
 {
@@ -15,16 +16,22 @@ namespace RRHH.Controllers
 
         private readonly RRHHContext ctx;
         private readonly ContabContext ctxContab;
+        private IConfiguration config;
 
-        public InterfacesController(RRHHContext context, ContabContext contContext)
+        public InterfacesController(RRHHContext context, ContabContext contContext, IConfiguration _config)
         {
             ctx = context;
             ctxContab = contContext;
+            config = _config;
         }
 
         public IActionResult Index()
         {
             string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+
+            // string _domainUser = HttpContext.User.Identity.Name;
+
+            // string[] _user = _domainUser.Split(@"\");
 
             string strSql = "Exec USP_CA_ACREDITACION {0}, {1}";
             ctx.Database.ExecuteSqlRaw(strSql, 0, _user[1]);
@@ -57,6 +64,20 @@ namespace RRHH.Controllers
 
                 return NotFound("No se encontraron Asientos contables");
             }
+
+            if (option == "2")//Acreditación de Salarios
+            {
+                List<AcreditacionEmpleado> acreds = ctx.AcredsEmpl.Where(x => x.ca_estatus=="P" && !x.ca_tp_pago.StartsWith("BE")).ToList();
+
+                if (acreds != null)
+                {
+                   return View("AcredsEmpl", acreds);
+                }
+
+                return NotFound("No se encontraron Acreditaciones");
+            }
+
+
 
 
             return StatusCode(200, "Todo fue bien");
@@ -170,5 +191,33 @@ namespace RRHH.Controllers
             ViewBag.Mensaje = "Se procesaron los Asientos con éxito!";
             return View("AsientosEnc", Encs);
         }
+
+
+        public IActionResult ProcesarAE(List<AcreditacionEmpleado> model){
+
+            List<string> Errores = new List<string>();
+
+            if(model == null){
+                Errores.Add("No existen acreditaciones para procesar!");
+                ViewBag.Errores = Errores;
+                return View("AcredEmpl", model);
+            }
+
+            string lsNombre = config.GetValue<string>("LinkedServers:IBS:Nombre");
+            string servidor = config.GetValue<string>("LinkedServers:IBS:Servidor");
+            string esquema = config.GetValue<string>("LinkedServers:IBS:Esquema");
+
+            string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+            // string strSql = "Exec USP_CA_ACREDITACION {0}, {1}";
+            // ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
+
+
+
+
+            List<AcreditacionEmpleado> acreds = ctx.AcredsEmpl.Where(x => x.ca_estatus=="P" && !x.ca_tp_pago.StartsWith("BE")).ToList();
+            ViewBag.Mensaje = "Se han procesado las Acreditaciones con éxito!";
+            return View("AcredsEmpl",acreds);
+        }
+
     }
 }

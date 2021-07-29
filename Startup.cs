@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,11 +29,14 @@ namespace RRHH
         {
             services.AddControllersWithViews();
 
-            services.AddAuthentication(IISDefaults.AuthenticationScheme).AddNegotiate();
+            //Autenticacion para IIS y IIS Express
+            //services.AddAuthentication(IISDefaults.AuthenticationScheme).AddNegotiate();
 
-           //services.AddAuthentication(IISDefaults.AuthenticationScheme)
-           
+            //Autenticacion para Kestrel
+            services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+            .AddNegotiate();
 
+            
             services.AddDbContext<RRHHContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("RRHHContext")));
 

@@ -111,10 +111,6 @@ namespace RRHH.Controllers
             var fecha = DateTime.Now;
             
 
-
-            
-
-
             for (int i = 0; i < chequesImp.Count(); i++)
             {
                 int numCheque = sec + i;

@@ -14397,7 +14397,7 @@
         }
       }
     ],
-    "CSharpLanguageVersion": 900
+    "CSharpLanguageVersion": 1000
   },
   "RootNamespace": "RRHH",
   "Documents": [
@@ -14754,6 +14754,11 @@
     {
       "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Home\\Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Interfaces\\AcredsEmpl.cshtml",
+      "TargetPath": "Views\\Interfaces\\AcredsEmpl.cshtml",
       "FileKind": "mvc"
     },
     {
