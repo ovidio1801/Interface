@@ -20,15 +20,23 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    
-                         @{using (var context = new PrincipalContext(ContextType.Domain)) 
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="dropdown nav-item">
+                            @{using (var context = new PrincipalContext(ContextType.Domain)) 
                              {
                                 var principal = UserPrincipal.FindByIdentity(context, User.Identity.Name);
-                                <p class="nav text-light navbar-text navbar-right">
-                                    Hola, @principal.GivenName @principal.Surname !
-                                </p>
+                                <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                    <p class="nav text-light navbar-text navbar-right">
+                                        Hola, @principal.GivenName @principal.Surname !
+                                    </p>
+                                </a>
                               }
                             }
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Close">Cerrar</a></li>
+                            </ul>
+                        </li>  
+                    </ul>
                                             
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">

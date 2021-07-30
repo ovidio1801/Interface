@@ -528,3 +528,4 @@ C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\TiposCheque\Index.cshtml.g
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\AsientosEnc.cshtml.g.cs
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\_modalDetalle.cshtml.g.cs
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\AcredsEmpl.cshtml.g.cs
+C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\Razor\Views\Home\Close.cshtml.g.cs

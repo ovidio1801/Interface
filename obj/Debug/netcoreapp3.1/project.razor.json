@@ -14452,6 +14452,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Home\\Close.cshtml",
+      "TargetPath": "Views\\Home\\Close.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\PROYECTOS\\RRHH\\Templates\\RazorPageGenerator_Versioned\\Bootstrap3\\DetailsPageModel.cshtml",
       "TargetPath": "Templates\\RazorPageGenerator_Versioned\\Bootstrap3\\DetailsPageModel.cshtml",
       "FileKind": "mvc"

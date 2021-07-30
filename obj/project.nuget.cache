@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "s0PdJEroT4hdkFVamX64ndqKcg/WOy+EBMUF3n34oZ16CTz9ZSzjlKbB7AOAn5Y8rDgiOGyrWvajRF4ZkjwGpg==",
+  "dgSpecHash": "Y9uxgAVdBU8ak1UI/vu5iT0l087przDOfgyIXz433F2xiJmNIdeyKAAhM8qVTFSD2S5W1Ml45hf/Z16boMQ8CQ==",
   "success": true,
-  "projectFilePath": "C:\\PROYECTOS\\RRHH\\RRHH.csproj",
+  "projectFilePath": "C:\\proyectos\\rrhh\\RRHH.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ovidiog\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ovidiog\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",

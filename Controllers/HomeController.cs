@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -33,6 +34,15 @@ namespace RRHH.Controllers
 
             
             return View();
+        }
+
+        public IActionResult Close(){
+
+            return new ContentResult {
+            ContentType = "text/html",
+            StatusCode = (int) HttpStatusCode.OK,
+            Content = "<script type=\"text/javascript\">window.close();</script>"};
+
         }
 
         
