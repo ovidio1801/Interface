@@ -200,19 +200,38 @@ namespace RRHH.Controllers
             if(model == null){
                 Errores.Add("No existen acreditaciones para procesar!");
                 ViewBag.Errores = Errores;
-                return View("AcredEmpl", model);
+                return View("AcredsEmpl", model);
             }
 
             string lsNombre = config.GetValue<string>("LinkedServers:IBS:Nombre");
             string servidor = config.GetValue<string>("LinkedServers:IBS:Servidor");
             string esquema = config.GetValue<string>("LinkedServers:IBS:Esquema");
 
-            string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
-            // string strSql = "Exec USP_CA_ACREDITACION {0}, {1}";
-            // ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
+            try
+            {
+                ctx.Database.BeginTransaction();
+                    string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+                    string strSql = "Exec USP_CA_ACREDITACION {0}, {1}";
+                    ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
 
+                    string sql = "UPDATE PS_CA_ROL_ACRED_EMPL SET CA_ESTATUS = 'A' ";
+                    sql += "FROM " + lsNombre + "." + servidor + "." + esquema + ".INPAS inp, dbo.PS_CA_ROL_ACRED_EMPL acr ";
+                    sql += "Where inp.ipgacc = acr.CA_CTA_ACRE ";
+                    sql += "and ACR.ca_fec_pago =CONVERT(datetime,cast (inp.ipgvdm as CHAR(2)) + '/' + cast(inp.ipgvdd as CHAR(2)) + '/' + cast(inp.ipgvdy as CHAR(2)) ) ";
+                    sql += "and acr.CA_MONTO_PG = inp.ipgcr1 ";
+                    sql += "and acr.CA_ESTATUS = 'P' ";
 
-
+                    int rows = ctx.Database.ExecuteSqlRaw(sql);
+                ctx.Database.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                ctx.Database.RollbackTransaction();
+                Errores.Add("Ocurrio un error en el porceso de Acreditaciones!");
+                Errores.Add(ex.Message);
+                ViewBag.Errores = Errores;
+                return View("AcredsEmpl", model);
+            }
 
             List<AcreditacionEmpleado> acreds = ctx.AcredsEmpl.Where(x => x.ca_estatus=="P" && !x.ca_tp_pago.StartsWith("BE")).ToList();
             ViewBag.Mensaje = "Se han procesado las Acreditaciones con éxito!";

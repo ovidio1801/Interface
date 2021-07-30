@@ -44,23 +44,35 @@
                             <th class="text-sm-center">Fecha</th>
                             <th class="text-sm-center">Quincena</th>
                             <th class="text-sm-center">Empleado</th>
-                            <th class="text-sm-center">Monto</th>
                             <th class="text-sm-center">Cuenta</th>
+                            <th class="text-sm-center">Monto</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if (Model != null)
                         {
+                            
+                            decimal total = 0;
+                        
                             for (int i = 0; i < Model.Count(); i++)
                             {
                                 <tr>
                                     <td class="text-sm-left">@Model[i].ca_fec_pago<input type="hidden" asp-for="@Model[i].ca_fec_pago" /></td>
                                     <td class="text-sm-left">@Model[i].ca_tp_pago<input type="hidden" asp-for="@Model[i].ca_tp_pago" /></td>
                                     <td class="text-sm-center">@Model[i].ca_num_empl<input type="hidden" asp-for="@Model[i].ca_num_empl" /></td>
-                                    <td class="text-sm-right">@Model[i].ca_monto_pg.ToString("C")<input type="hidden" asp-for="@Model[i].ca_monto_pg" /></td>
                                     <td class="text-sm-center">@Model[i].ca_cta_acre<input type="hidden" asp-for="@Model[i].ca_cta_acre" /></td>
+                                    <td class="text-sm-right">@Model[i].ca_monto_pg.ToString("C")<input type="hidden" asp-for="@Model[i].ca_monto_pg" /></td>
                                 </tr>
+
+                                total = total + Model[i].ca_monto_pg;
                             }
+                            <tr>
+                                @* <td></td>
+                                <td></td>
+                                <td></td> *@
+                                <td colspan="4" class="text-sm-right font-weight-bold">Totales:</td>
+                                <td class="text-sm-right font-weight-bold">@total.ToString("C")</td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -77,7 +89,6 @@
         </div>
     </div>
 
-
 </form>
 
 
@@ -85,11 +96,11 @@
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
 
-    <script>
+    @* <script>
         $(document).ready(function () {
             $('#tabla').DataTable();
         });
-    </script>
+    </script> *@
 
 }
 
