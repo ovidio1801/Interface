@@ -508,9 +508,6 @@ C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Templates\ViewGenerator_Versione
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Templates\ViewGenerator\Create.cshtml.g.cs
 C:\PROYECTOS\RRHH\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
 C:\PROYECTOS\RRHH\bin\Debug\netcoreapp3.1\runtimes\linux-mips64\native\libe_sqlite3.so
-C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\RRHH.csproj.CoreCompileInputs.cache
-C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\RRHH.MvcApplicationPartsAssemblyInfo.cs
-C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\RRHH.MvcApplicationPartsAssemblyInfo.cache
 C:\PROYECTOS\RRHH\bin\Debug\netcoreapp3.1\libman.json
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\Index.cshtml.g.cs
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\Cheques\ChequesImpresos.cshtml.g.cs
@@ -527,3 +524,10 @@ C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\TiposCheque\Edit.cshtml.g.
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\TiposCheque\Index.cshtml.g.cs
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\AsientosEnc.cshtml.g.cs
 C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\_modalDetalle.cshtml.g.cs
+C:\PROYECTOS\RRHH\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\AcredsEmpl.cshtml.g.cs
+C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\Razor\Views\Home\Close.cshtml.g.cs
+C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\RRHH.csproj.CoreCompileInputs.cache
+C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\RRHH.MvcApplicationPartsAssemblyInfo.cs
+C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\RRHH.MvcApplicationPartsAssemblyInfo.cache
+C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\LoginPI.cshtml.g.cs
+C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\ProductosInternos.cshtml.g.cs

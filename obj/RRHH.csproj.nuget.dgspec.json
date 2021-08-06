@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\PROYECTOS\\RRHH\\RRHH.csproj": {}
+    "C:\\proyectos\\rrhh\\RRHH.csproj": {}
   },
   "projects": {
-    "C:\\PROYECTOS\\RRHH\\RRHH.csproj": {
+    "C:\\proyectos\\rrhh\\RRHH.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\PROYECTOS\\RRHH\\RRHH.csproj",
+        "projectUniqueName": "C:\\proyectos\\rrhh\\RRHH.csproj",
         "projectName": "RRHH",
-        "projectPath": "C:\\PROYECTOS\\RRHH\\RRHH.csproj",
+        "projectPath": "C:\\proyectos\\rrhh\\RRHH.csproj",
         "packagesPath": "C:\\Users\\ovidiog\\.nuget\\packages\\",
-        "outputPath": "C:\\PROYECTOS\\RRHH\\obj\\",
+        "outputPath": "C:\\proyectos\\rrhh\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ovidiog\\AppData\\Roaming\\NuGet\\NuGet.Config",
