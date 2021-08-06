@@ -14767,8 +14767,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Interfaces\\LoginPI.cshtml",
+      "TargetPath": "Views\\Interfaces\\LoginPI.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\PROYECTOS\\RRHH\\Templates\\ViewGenerator\\Create.cshtml",
       "TargetPath": "Templates\\ViewGenerator\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Interfaces\\ProductosInternos.cshtml",
+      "TargetPath": "Views\\Interfaces\\ProductosInternos.cshtml",
       "FileKind": "mvc"
     }
   ],

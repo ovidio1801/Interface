@@ -11,12 +11,15 @@ namespace RRHH.Models
     [Table("IRH_CHEQUES")]
     public class Cheque
     {
+        
+        #nullable disable
         [Key]
         public Int64 irh_chequeId { get; set; }
         public string empresa { get; set; }
         public string oficina { get; set; }
         public string cheque { get; set; }
-        public string codigo { get; set; }
+        public string codigo { get; set; }  
+        #nullable enable      
         public string? comentario { get; set; }
         public string? nombre { get; set; }
         public decimal monto { get; set; }

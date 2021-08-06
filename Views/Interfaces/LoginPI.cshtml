@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Login AS400";
+}
+
+<h6>Login AS400</h6>
+<hr />
+<form asp-action="ProductosInternos" >
+    <div class="form-group col-sm-4">
+        <label for="inputEmail">Usuario</label>
+        <input type="text" class="form-control" name="usuario" placeholder="Usuario">
+    </div>
+    <div class="form-group col-sm-4">
+        <label for="inputPassword">Clave</label>
+        <input type="password" class="form-control" name="clave" placeholder="Clave">
+    </div>
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-primary" name="Aceptar" >Aceptar</button>
+        <button type="submit" class="btn btn-primary" name="Cancelar" asp-action="Index">Cancelar</button>
+    </div>
+    
+</form>
+

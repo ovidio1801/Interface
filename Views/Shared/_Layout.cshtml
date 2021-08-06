@@ -24,12 +24,21 @@
                         <li class="dropdown nav-item">
                             @{using (var context = new PrincipalContext(ContextType.Domain)) 
                              {
-                                var principal = UserPrincipal.FindByIdentity(context, User.Identity.Name);
-                                <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                                    <p class="nav text-light navbar-text navbar-right">
-                                        Hola, @principal.GivenName @principal.Surname !
-                                    </p>
-                                </a>
+                                if(User.Identity.Name != null){
+                                    var principal = UserPrincipal.FindByIdentity(context, User.Identity.Name);
+                                    <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                        <p class="nav text-light navbar-text navbar-right">
+                                            Hola, @principal.GivenName @principal.Surname !
+                                        </p>
+                                    </a>
+                                }else{
+                                    <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                        <p class="nav text-light navbar-text navbar-right">
+                                            Hola!
+                                        </p>
+                                    </a>
+                                }
+                                
                               }
                             }
                             <ul class="dropdown-menu" role="menu">
