@@ -13,7 +13,7 @@ namespace RRHH.Models{
         public decimal ca_dig_verif { get; set; }
         public decimal ca_monto_pag { get; set; }
         public DateTime fecha { get; set; }
-        public string ca_status { get; set; } 
+        public string ca_estatus { get; set; } 
 
     }
 

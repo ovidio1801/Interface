@@ -38,7 +38,8 @@ namespace RRHH
 
             
             services.AddDbContext<RRHHContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("RRHHContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("RRHHContext"),
+                    sqlServerOptions => sqlServerOptions.CommandTimeout(60)));
 
             services.AddDbContext<ContabContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ContabContext")));

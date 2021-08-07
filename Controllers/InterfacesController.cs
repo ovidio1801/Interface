@@ -84,7 +84,12 @@ namespace RRHH.Controllers
             if (option == "3")//Productos Internos
             {
                 
-                return View("ProductosInternos");
+                List<DescuentoProducto> prods = ctx.DescsProd.Where(x => x.ca_estatus == "P").ToList();
+                List<DescuentoTarjeta> tars = ctx.DescsTar.Where(x => x.ca_estatus == "P").ToList();
+
+                ViewBag.tars = tars;
+
+                return View("ProductosInternos", prods);
                 
             }
 
