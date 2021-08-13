@@ -18,5 +18,6 @@ namespace RRHH.Models
         public string ca_num_empl { get; set; }
         public string ca_tp_pago { get; set; }
         public string ca_estatus { get; set; }
+        public string ca_centro { get; set; }
     }
 }

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Login IBS";
+}
+
+<h6>Login IBS</h6>
+<hr />
+<div class="row">
+    <div class="text-danger">
+        @if (ViewBag.Errores != null)
+        {
+            <ul>
+                @foreach (string item in ViewBag.Errores)
+                {
+                    <li>@item.ToString()</li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="text-success">
+        @if (ViewBag.Mensaje != null)
+        {
+            <ul>
+                <li>@ViewBag.Mensaje</li>
+            </ul>
+        }
+    </div>
+</div>
+<form asp-action="ChequesIBS" >
+    <div class="form-group col-sm-4">
+        <label for="inputEmail">Usuario</label>
+        <input type="text" class="form-control" name="usuario" placeholder="Usuario">
+    </div>
+    <div class="form-group col-sm-4">
+        <label for="inputPassword">Clave</label>
+        <input type="password" class="form-control" name="clave" placeholder="Clave">
+    </div>
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-primary" name="Aceptar" >Aceptar</button>
+        <button type="submit" class="btn btn-primary" name="Cancelar" asp-action="Index">Cancelar</button>
+    </div>
+    
+</form>
+

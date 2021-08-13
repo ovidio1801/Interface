@@ -9,6 +9,27 @@
             <h6>Interfaces Nómina</h6>
             <hr />
             <div class="row">
+                <div class="text-danger">
+                    @if (ViewBag.Errores != null)
+                    {
+                        <ul>
+                            @foreach (string item in ViewBag.Errores)
+                            {
+                                <li>@item.ToString()</li>
+                            }
+                        </ul>
+                    }
+                </div>
+                <div class="text-success">
+                    @if (ViewBag.Mensaje != null)
+                    {
+                        <ul>
+                            <li>@ViewBag.Mensaje</li>
+                        </ul>
+                    }
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="option" id="opt1" value="1" checked>
@@ -51,11 +72,6 @@
                             <input type="submit" name="Cancelar" value="Cancelar" class="btn btn-primary" asp-action="Index" />
                         </div>
                     </div>
-                    @*<div class="col-sm-6">
-                        <div class="form-group ">
-                            <input type="submit" name="Cancelar" value="Cancelar" class="btn btn-primary" asp-action="Index" />
-                        </div>
-                    </div>*@
                 </div>
             </div>
         </fieldset>

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Microsoft.Extensions.Configuration;
+using System.Data.Odbc;
 
 namespace RRHH.Controllers
 {
@@ -56,7 +57,6 @@ namespace RRHH.Controllers
         public IActionResult ShowOption(string option)
         {
 
-
             if (option == "1")//Asientos Contables
             {
                 List<AsientoEnc> Encs = ctx.AsientosEnc.Where(x => x.ca_pasado == "N").ToList();
@@ -83,18 +83,23 @@ namespace RRHH.Controllers
 
             if (option == "3")//Productos Internos
             {
-                
+                //Ovidio 2021-ago-9: se comenta por que está dando timeout
+                //List<DescuentoProducto> prods = null;
                 List<DescuentoProducto> prods = ctx.DescsProd.Where(x => x.ca_estatus == "P").ToList();
                 List<DescuentoTarjeta> tars = ctx.DescsTar.Where(x => x.ca_estatus == "P").ToList();
 
                 ViewBag.tars = tars;
 
-                return View("ProductosInternos", prods);
-                
+                return View("ProductosInternos", prods);  
             }
 
+            if (option == "4")//Cheques IBS
+            {
+                
+                List<Cheque> cheques = ctx.Cheques.Where(x => x.status == "I").ToList();
 
-
+                return View("ChequesIBS", cheques);  
+            }
 
             return StatusCode(200, "Todo fue bien");
         }
@@ -226,21 +231,20 @@ namespace RRHH.Controllers
             try
             {
                 //Ovidio 5-ago-2021: Se comenta mientras terminan pruebas del otro grupo
-                // ctx.Database.BeginTransaction();
-                //     Se comentó mientras terminan pruebas de RRHH
-                //     string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
-                //     string strSql = "Exec USP_CA_ACREDITACION {0}, {1}";
-                //     ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
+                ctx.Database.BeginTransaction();
+                    string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+                    string strSql = "Exec USP_CA_ACREDITACION {0}, {1}";
+                    ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
 
-                //     string sql = "UPDATE PS_CA_ROL_ACRED_EMPL SET CA_ESTATUS = 'A' ";
-                //     sql += "FROM " + lsNombre + "." + servidor + "." + esquema + ".INPAS inp, dbo.PS_CA_ROL_ACRED_EMPL acr ";
-                //     sql += "Where inp.ipgacc = acr.CA_CTA_ACRE ";
-                //     sql += "and ACR.ca_fec_pago =CONVERT(datetime,cast (inp.ipgvdm as CHAR(2)) + '/' + cast(inp.ipgvdd as CHAR(2)) + '/' + cast(inp.ipgvdy as CHAR(2)) ) ";
-                //     sql += "and acr.CA_MONTO_PG = inp.ipgcr1 ";
-                //     sql += "and acr.CA_ESTATUS = 'P' ";
+                    string sql = "UPDATE PS_CA_ROL_ACRED_EMPL SET CA_ESTATUS = 'A' ";
+                    sql += "FROM " + lsNombre + "." + servidor + "." + esquema + ".INPAS inp, dbo.PS_CA_ROL_ACRED_EMPL acr ";
+                    sql += "Where inp.ipgacc = acr.CA_CTA_ACRE ";
+                    sql += "and ACR.ca_fec_pago =CONVERT(datetime,cast (inp.ipgvdm as CHAR(2)) + '/' + cast(inp.ipgvdd as CHAR(2)) + '/' + cast(inp.ipgvdy as CHAR(2)) ) ";
+                    sql += "and acr.CA_MONTO_PG = inp.ipgcr1 ";
+                    sql += "and acr.CA_ESTATUS = 'P' ";
 
-                //     int rows = ctx.Database.ExecuteSqlRaw(sql);
-                // ctx.Database.CommitTransaction();
+                    int rows = ctx.Database.ExecuteSqlRaw(sql);
+                ctx.Database.CommitTransaction();
             }
             catch (Exception ex)
             {
@@ -261,6 +265,114 @@ namespace RRHH.Controllers
             
             return View("LoginPI");
         }
+
+        public IActionResult ProductosInternos(string usuario, string clave){
+
+            List<string> Errores = new List<string>();
+            
+            string DSN = config.GetValue<string>("ODBC:DSN");
+            string conStr= "DSN=" + DSN + "; UID=" + usuario.Trim() +"; PWD=" + clave.Trim() + ";";
+             
+            
+            OdbcConnection con = new OdbcConnection(conStr);
+            
+            try
+            {
+                if(con != null || con.State == System.Data.ConnectionState.Closed){
+                con.Open();
+                con.Close();
+                ctx.Database.BeginTransaction();
+                    
+                    string sql = "UPDATE PS_CA_ROL_DESCUEN_PROD SET CA_USUARIO_IBS = {0} ";
+                    sql += "WHERE CA_ESTATUS = 'P' ";
+                    int rows = ctx.Database.ExecuteSqlRaw(sql, usuario);
+
+                    string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+                    string strSql = "Exec USP_CA_ROL_DESCUENTO {0}, {1}";
+                    ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
+
+                    string sql1 = "UPDATE PS_CA_ROL_DESCUEN_PROD SET CA_ESTATUS = 'C' ";
+                    sql1 += "WHERE CA_ESTATUS = 'P'";
+                    int rows1 = ctx.Database.ExecuteSqlRaw(sql1);
+
+                    string sql2 = "UPDATE PS_CA_ROL_DESCUEN_TC SET CA_ESTATUS = 'C' ";
+                    sql2 += "WHERE CA_ESTATUS = 'P'";
+                    int rows2 = ctx.Database.ExecuteSqlRaw(sql2);
+
+                    
+                ctx.Database.CommitTransaction();
+
+                ViewBag.Mensaje = "Productos procesados con éxito!";
+                return View("Index");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                if(ctx.Database.CurrentTransaction != null)ctx.Database.RollbackTransaction();
+                Errores.Add("Error en las credenciales de conexión IBS!");
+                Errores.Add(ex.Message);
+                ViewBag.Errores = Errores;
+                return View("LoginPI");
+                
+            }
+            
+
+            ViewBag.Mensaje = "Productos procesados con éxito!";
+            return View("Index");
+        }
+
+        public IActionResult LoginCheques(string usuario, string clave){
+
+            
+            return View("LoginCheques");
+        }
+
+        public IActionResult ChequesIBS(string usuario, string clave){
+
+            List<string> Errores = new List<string>();
+            
+            string DSN = config.GetValue<string>("ODBC:DSN");
+            string conStr= "DSN=" + DSN + "; UID=" + usuario.Trim() +"; PWD=" + clave.Trim() + ";";
+             
+            
+            OdbcConnection con = new OdbcConnection(conStr);
+            
+            try
+            {
+                if(con != null || con.State == System.Data.ConnectionState.Closed){
+                con.Open();
+                con.Close();
+                ctx.Database.BeginTransaction();
+                    
+                    string sql = "UPDATE PS_CA_ROL_PAGO_ACREEDOR SET USUARIO = {0} ";
+                    sql += "WHERE STATUS = 'I' ";
+                    int rows = ctx.Database.ExecuteSqlRaw(sql, usuario);
+
+                    string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+                    string strSql = "Exec USP_CA_ROL_PAGO_ACREEDOR {0}, {1}";
+                    ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
+                    
+                ctx.Database.CommitTransaction();
+
+                ViewBag.Mensaje = "Cheques procesados con éxito!";
+                return View("Index");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                if(ctx.Database.CurrentTransaction != null)ctx.Database.RollbackTransaction();
+                Errores.Add("Error en las credenciales de conexión IBS!");
+                Errores.Add(ex.Message);
+                ViewBag.Errores = Errores;
+                return View("LoginCheques");
+                
+            }
+            
+
+            ViewBag.Mensaje = "Productos procesados con éxito!";
+            return View("Index");
+        }
+
 
     }
 }

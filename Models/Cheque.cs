@@ -29,6 +29,8 @@ namespace RRHH.Models
         public string? usuario { get; set; }
         public string? tipo_acreedor { get; set; }
         public string? forma_pago { get; set; }
+        public string? debito { get; set; }
+        public string? credito { get; set; }
         [NotMapped]
         public bool imp { get; set; }
 

@@ -14727,6 +14727,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Interfaces\\ChequesIBS.cshtml",
+      "TargetPath": "Views\\Interfaces\\ChequesIBS.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Interfaces\\LoginCheques.cshtml",
+      "TargetPath": "Views\\Interfaces\\LoginCheques.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\PROYECTOS\\RRHH\\Templates\\MvcLayout\\Error.cshtml",
       "TargetPath": "Templates\\MvcLayout\\Error.cshtml",
       "FileKind": "mvc"

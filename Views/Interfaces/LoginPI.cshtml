@@ -1,10 +1,31 @@
 ﻿
 @{
-    ViewData["Title"] = "Login AS400";
+    ViewData["Title"] = "Login IBS";
 }
 
-<h6>Login AS400</h6>
+<h6>Login IBS</h6>
 <hr />
+<div class="row">
+    <div class="text-danger">
+        @if (ViewBag.Errores != null)
+        {
+            <ul>
+                @foreach (string item in ViewBag.Errores)
+                {
+                    <li>@item.ToString()</li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="text-success">
+        @if (ViewBag.Mensaje != null)
+        {
+            <ul>
+                <li>@ViewBag.Mensaje</li>
+            </ul>
+        }
+    </div>
+</div>
 <form asp-action="ProductosInternos" >
     <div class="form-group col-sm-4">
         <label for="inputEmail">Usuario</label>
