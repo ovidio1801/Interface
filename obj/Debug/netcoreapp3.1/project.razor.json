@@ -14767,6 +14767,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Interfaces\\AcredBenef.cshtml",
+      "TargetPath": "Views\\Interfaces\\AcredBenef.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Home\\Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
       "FileKind": "mvc"

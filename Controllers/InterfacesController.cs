@@ -101,6 +101,14 @@ namespace RRHH.Controllers
                 return View("ChequesIBS", cheques);  
             }
 
+            if (option == "5")//Acreditación de Beneficios
+            {
+                
+                List<AcreditacionEmpleado> acreds = ctx.AcredsEmpl.Where(x => x.ca_estatus == "P").ToList();
+
+                return View("AcredBenef", acreds);  
+            }
+
             return StatusCode(200, "Todo fue bien");
         }
 

@@ -18,6 +18,14 @@ namespace RRHH.Models
         public string ca_num_empl { get; set; }
         public string ca_tp_pago { get; set; }
         public string ca_estatus { get; set; }
-        public string ca_centro { get; set; }
+        #nullable enable  
+        public string? ca_centro { get; set; }
+        public string? ca_cuenta_db { get; set; }
+        public string? ca_cuenta_cr { get; set; }
+        public string? ca_descripcion { get; set; }
+        public decimal? ca_cod_comp { get; set; }
+        public string? ca_run_type { get; set; }
+        public string? ca_tipo { get; set; }
+        public string? ca_usuario { get; set; }  
     }
 }
