@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RRHH.Models;
 
@@ -17,13 +18,17 @@ namespace RRHH.Controllers
 {
 
     [Authorize(Policy = "CubitosUsers")]
+    [Authorize(Policy = "CubitosAdmin")]
     public class HomeController : Controller
     {
+
+        private IConfiguration config;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration _config)
         {
             _logger = logger;
+            config = _config;
         }
 
         public IActionResult Index()
@@ -55,6 +60,11 @@ namespace RRHH.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Reportes(){
+            string reportServer = config.GetValue<string>("ReportServer");
+            return Redirect(reportServer);
         }
     }
 }

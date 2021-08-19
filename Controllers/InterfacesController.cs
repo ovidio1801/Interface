@@ -9,9 +9,11 @@ using System.Linq;
 using System;
 using Microsoft.Extensions.Configuration;
 using System.Data.Odbc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RRHH.Controllers
 {
+    [Authorize(Policy = "CubitosUsers")]
     public class InterfacesController : Controller
     {
 
@@ -373,6 +375,61 @@ namespace RRHH.Controllers
                 Errores.Add(ex.Message);
                 ViewBag.Errores = Errores;
                 return View("LoginCheques");
+                
+            }
+            
+
+            ViewBag.Mensaje = "Productos procesados con éxito!";
+            return View("Index");
+        }
+
+        public IActionResult LoginBenef(string usuario, string clave){
+
+            return View("LoginBenef");
+        }
+
+        public IActionResult AcredBenef(string usuario, string clave){
+
+            List<string> Errores = new List<string>();
+            
+            string DSN = config.GetValue<string>("ODBC:DSN");
+            string conStr= "DSN=" + DSN + "; UID=" + usuario.Trim() +"; PWD=" + clave.Trim() + ";";
+             
+            
+            OdbcConnection con = new OdbcConnection(conStr);
+            
+            try
+            {
+                if(con != null || con.State == System.Data.ConnectionState.Closed){
+                con.Open();
+                con.Close();
+                ctx.Database.BeginTransaction();
+                    
+                    string sql = "UPDATE PS_CA_ROL_ACRED_EMPL SET CA_USUARIO = {0} ";
+                    sql += "WHERE CA_ESTATUS = 'P' ";
+                    int rows = ctx.Database.ExecuteSqlRaw(sql, usuario);
+
+                    string[] _user = HttpContext.User.Identity.Name.ToString().Split(@"\");
+                    string strSql = "Exec USP_CA_ACRED_BENEFICIO {0}, {1}";
+                    ctx.Database.ExecuteSqlRaw(strSql, 1, _user[1]);
+
+                    string sql1 = "UPDATE PS_CA_ROL_ACRED_EMPL SET CA_ESTATUS = 'A' ";
+                    sql1 += "WHERE CA_ESTATUS = 'P' ";
+                    int rows1 = ctx.Database.ExecuteSqlRaw(sql1);
+                    
+                ctx.Database.CommitTransaction();
+
+                ViewBag.Mensaje = "Beneficios procesados con éxito!";
+                return View("Index");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                if(ctx.Database.CurrentTransaction != null)ctx.Database.RollbackTransaction();
+                Errores.Add("Error en las credenciales de conexión IBS!");
+                Errores.Add(ex.Message);
+                ViewBag.Errores = Errores;
+                return View("LoginBenef");
                 
             }
             

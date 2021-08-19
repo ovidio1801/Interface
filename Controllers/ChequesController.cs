@@ -9,10 +9,11 @@ using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using RRHH.Services;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace RRHH.Controllers
 {
+    [Authorize(Policy = "CubitosUsers")]
     public class ChequesController : Controller
     {
 
@@ -129,9 +130,9 @@ namespace RRHH.Controllers
                     "and codigo = {6} and fecha_registro = {7} and monto = {8}";
 
                 //Ovidio 2021 - 06 - 22: recordar descomentr para la implementación
-                //int rows = ctx.Database.ExecuteSqlRaw(strSql, numCheque.ToString(), _user[1], fecha, "I",
-                //    chequesImp[i].empresa, chequesImp[i].oficina, chequesImp[i].codigo,
-                //    chequesImp[i].fecha_registro, chequesImp[i].monto);
+                int rows = ctx.Database.ExecuteSqlRaw(strSql, numCheque.ToString(), _user[1], fecha, "I",
+                   chequesImp[i].empresa, chequesImp[i].oficina, chequesImp[i].codigo,
+                   chequesImp[i].fecha_registro, chequesImp[i].monto);
 
                 string coment = "";
                 switch (chequesImp[i].tipo_acreedor)

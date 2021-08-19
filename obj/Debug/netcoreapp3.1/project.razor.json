@@ -14417,6 +14417,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\PROYECTOS\\RRHH\\Views\\Interfaces\\LoginBenef.cshtml",
+      "TargetPath": "Views\\Interfaces\\LoginBenef.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\PROYECTOS\\RRHH\\Templates\\ControllerGenerator\\ControllerWithActions.cshtml",
       "TargetPath": "Templates\\ControllerGenerator\\ControllerWithActions.cshtml",
       "FileKind": "mvc"

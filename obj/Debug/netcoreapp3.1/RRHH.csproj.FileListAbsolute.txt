@@ -592,3 +592,4 @@ C:\proyectos\rrhh\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System
 C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\ChequesIBS.cshtml.g.cs
 C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\LoginCheques.cshtml.g.cs
 C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\AcredBenef.cshtml.g.cs
+C:\proyectos\rrhh\obj\Debug\netcoreapp3.1\Razor\Views\Interfaces\LoginBenef.cshtml.g.cs

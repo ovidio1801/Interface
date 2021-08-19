@@ -60,7 +60,7 @@
                             <li><a class="dropdown-item" asp-area="" asp-controller="TiposCheque" asp-action="Index">Tipos de Cheques</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    @* <li class="nav-item"> *@
                     <li class="dropdown nav-item">
                         <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                             Procesos
@@ -69,6 +69,9 @@
                             <li><a class="dropdown-item" asp-area="" asp-controller="Cheques" asp-action="Index">Cheques Pendientes</a></li>
                             <li><a class="dropdown-item" asp-area="" asp-controller="Interfaces" asp-action="Index">Interfases RH - eIBS</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Reportes">Reportes</a>
                     </li>
                 </ul>
                 </div>
