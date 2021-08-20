@@ -1,0 +1,1 @@
+# Interfaces is a application that exchanges data between a Human Resources system and an AS400 system, in which you can print checks, credit salary adjustments, credit loans, credit cards and others.
