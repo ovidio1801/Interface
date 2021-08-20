@@ -1,1 +1,1 @@
-# Interfaces is a application that exchanges data between a Human Resources system and an AS400 system, in which you can print checks, credit salary adjustments, credit loans, credit cards and others.
+# Interfaces is a application makeit in ASP.NET Core with MVC pattern, that exchanges data between a Human Resources system and an AS400 system, in which you can print checks, credit salary adjustments, credit loans, credit cards and others.
