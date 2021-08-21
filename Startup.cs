@@ -30,9 +30,10 @@ namespace RRHH
             services.AddControllersWithViews();
 
             //Autenticacion para IIS y IIS Express
-            //services.AddAuthentication(IISDefaults.AuthenticationScheme).AddNegotiate();
+            //services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            //.AddNegotiate();
 
-            //Autenticacion para Kestrel
+            //Autenticacion para Kestrel, IIS y IIS Express, funciona para todos
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
             .AddNegotiate();
 

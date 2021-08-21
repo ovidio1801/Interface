@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\ovidiog\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\ovidiog\\.nuget\\packages"
+    ]
+  }
+}
