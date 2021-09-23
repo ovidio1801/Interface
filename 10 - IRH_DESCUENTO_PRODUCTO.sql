@@ -1,7 +1,9 @@
-drop view [IRH_DESCUENTO_PRODUCTO]
-go
+
 USE [RRHH]
 GO
+
+drop view [IRH_DESCUENTO_PRODUCTO]
+go
 
 /****** Object:  View [dbo].[IRH_DESCUENTO_PRODUCTO]    Script Date: 08/06/2021 08:30:12 a.m. ******/
 SET ANSI_NULLS ON

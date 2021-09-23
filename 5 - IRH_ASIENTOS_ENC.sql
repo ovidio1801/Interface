@@ -1,3 +1,6 @@
+USE RRHH
+go
+
 drop view IRH_ASIENTOS_ENC
 go
 

@@ -1,3 +1,6 @@
+USE RRHH
+go
+
 drop view irh_cheques
 go
 
